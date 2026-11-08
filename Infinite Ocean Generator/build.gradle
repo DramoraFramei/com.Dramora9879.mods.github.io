@@ -27,7 +27,25 @@ sourceSets.main.resources {
 }
 
 repositories {
-    // Add here additional repositories if required by some of the dependencies below.
+    maven { url = "https://maven.createmod.net" } // Ponder, Flywheel
+    maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
+    maven { url = "https://maven.blamejared.com" } // JEI, Vazkii's Mods
+    maven { url = "https://maven.theillusivec4.top/" } // Curios API
+    maven { url = "https://maven.squiddev.cc" } // CC: Tweaked
+    maven { url = "https://www.cursemaven.com" }
+    maven { url = "https://api.modrinth.com/maven" }
+    maven { url = "https://maven.ftb.dev/releases" } // FTB Mods
+    maven { url = "https://maven.architectury.dev" } // Arch API
+    maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven" }
+    // NeoForge config api port, needed by ponder
+    maven {
+        url = "https://jm.gserv.me/repository/maven-public" // JourneyMap
+        content {
+            includeGroup "info.journeymap"
+            includeGroup "mysticdrew"
+        }
+    }
+    maven { url "https://chocolateminecraft.com/maven" } // Xaero
 }
 
 base {
@@ -38,19 +56,20 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
-    // Specify the version of NeoForge to use.
-    version = project.neo_version
+    version = neo_version
 
-    parchment {
-        mappingsVersion = project.parchment_version
-        minecraftVersion = project.parchment_minecraft_version
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
     }
 
-    // This line is optional. Access Transformers are automatically detected
-    // accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+    if (parchment_version != "none") {
+        parchment {
+            minecraftVersion = parchment_minecraft_version == "same" ? minecraft_version : parchment_minecraft_version
+            mappingsVersion = parchment_version
+        }
+    }
 
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
             client()
