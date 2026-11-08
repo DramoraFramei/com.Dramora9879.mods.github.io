@@ -142,6 +142,7 @@ configurations {
 dependencies {
     //compileOnly("mezz.jei:jei-$minecraft_version-common-api:$jei_version")
     //compileOnly("mezz.jei:jei-$minecraft_version-neoforge-api:$jei_version")
+    implementation("com.cake.azimuth:azimuth:${azimuth_version}")
     implementation("mezz.jei:jei-$minecraft_version-neoforge:$jei_version")
 
     compileOnly("top.theillusivec4.curios:curios-neoforge:$curios_version+$minecraft_version:api")
@@ -155,6 +156,14 @@ dependencies {
         runtimeOnly("cc.tweaked:cc-tweaked-$minecraft_version-forge:$cc_tweaked_version")
     }
 
+    if (create_enable.toBoolean()) {
+        compileOnly("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
+        implementation("net.createmod.ponder:ponder-    neoforge:${ponder_version}+mc${minecraft_version}")
+        runtimeOnly("com.simibubi.create:create-${minecraft_version}:${create_v    ersion}:slim") { transitive = false }
+        compileOnly("dev.engine-room.flywheel:flywheel-neoforge-    api-${minecraft_version}:${flywheel_version}")
+        runtimeOnly("dev.engine-room.flywheel:flywheel-    neoforge-${minecraft_version}:${flywheel_version}")
+        implementation("com.tterrag.registrate:Registrate:${registrate_version}    ")
+    }
     compileOnly("maven.modrinth:farmers-delight:${farmers_delight_version}")
     if (farmers_delight_enable.toBoolean()) {
         implementation("maven.modrinth:farmers-delight:${farmers_delight_version}")
@@ -166,7 +175,7 @@ dependencies {
     implementation("dev.ftb.mods:ftb-library-neoforge:2101.1.3")
 
     implementation("maven.modrinth:journeymap:1.21.1-6.0.0-beta.54+neoforge")
-    implementation("info.journeymap:journeymap-api-neoforge:2.0.0-1.21.1-20260205.200232-15") {
+    implementation("info.journeymap:journeymap-api-neoforge:2.0.0-1.21.1") {
         exclude(group: "curse.maven") // Pulls in a old version of journey map which is for forge
     }
 
@@ -185,7 +194,7 @@ sourceSets.main {
 jar {
     String name = base.archivesName.get()
 
-    from("LICENSE.md") {
+    from("LICENSE") {
         rename { "${it}_$name" }
     }
 
