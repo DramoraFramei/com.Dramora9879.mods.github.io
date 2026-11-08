@@ -26,15 +26,15 @@ public class InfiniteOceanGenerator {
 	public static final String MODID = "infinite_ocean_generator";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-	public static final DeferredRegister<MapCodec<? extends ChunkGenerator>> CHUNK_GENERATORS =
-			DeferredRegister.create(Registries.CHUNK_GENERATOR, MODID);
-	public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCES =
-			DeferredRegister.create(Registries.BIOME_SOURCE, MODID);
+	public static final DeferredRegister<MapCodec<? extends ChunkGenerator>> CHUNK_GENERATORS = DeferredRegister
+			.create(Registries.CHUNK_GENERATOR, MODID);
+	public static final DeferredRegister<MapCodec<? extends BiomeSource>> BIOME_SOURCES = DeferredRegister
+			.create(Registries.BIOME_SOURCE, MODID);
 
-	public static final DeferredHolder<MapCodec<? extends ChunkGenerator>, MapCodec<InfiniteOceanChunkGenerator>> INFINITE_OCEAN_GENERATOR =
-			CHUNK_GENERATORS.register("infinite_ocean", () -> InfiniteOceanChunkGenerator.CODEC);
-	public static final DeferredHolder<MapCodec<? extends BiomeSource>, MapCodec<InfiniteOceanBiomeSource>> INFINITE_OCEAN_BIOME_SOURCE =
-			BIOME_SOURCES.register("ocean", () -> InfiniteOceanBiomeSource.CODEC);
+	public static final DeferredHolder<MapCodec<? extends ChunkGenerator>, MapCodec<InfiniteOceanChunkGenerator>> INFINITE_OCEAN_GENERATOR = CHUNK_GENERATORS
+			.register("infinite_ocean", () -> InfiniteOceanChunkGenerator.CODEC);
+	public static final DeferredHolder<MapCodec<? extends BiomeSource>, MapCodec<InfiniteOceanBiomeSource>> INFINITE_OCEAN_BIOME_SOURCE = BIOME_SOURCES
+			.register("ocean", () -> InfiniteOceanBiomeSource.CODEC);
 
 	public InfiniteOceanGenerator(IEventBus modEventBus) {
 		CHUNK_GENERATORS.register(modEventBus);
