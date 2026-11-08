@@ -1,6 +1,7 @@
 package com.Dramora9879.mods.infinite_ocean_generator.mixin.presets;
 
 import com.Dramora9879.mods.infinite_ocean_generator.InfiniteOceanGenerator;
+import com.Dramora9879.mods.infinite_ocean_generator.worldgen.InfiniteOceanChunkGenerator;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -14,6 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ChunkGeneratorsMixin {
     @Inject(method = "bootstrap", at = @At("TAIL"))
     private static void bootstrap(final Registry<MapCodec<? extends ChunkGenerator>> registry, final  CallbackInfoReturnable<MapCodec<? extends ChunkGenerator>> cir) {
-        Registry.register(registry, InfiniteOceanGenerator.asResource)
+        Registry.register(registry, InfiniteOceanGenerator.asResource("infinite_ocean"), InfiniteOceanChunkGenerator.CODEC);
     }
 }

@@ -1,14 +1,12 @@
 {
     "required": true,
     "minVersion": "0.8",
-    "package": "com.github.Dramora9879.Infinite-Ocean-Generator.mixin",
-    "plugin": "Infinite-Ocean-Generator.mixin.InfiniteOceanGeneratorMixinPlugin",
-    "refmap": "Infinite-Ocean-Generator.refmap.json",
+    "package": "com.Dramora9879.mods.infinite_ocean_generator.mixin",
     "compatibilityLevel": "JAVA_21",
     "mixins": [
-        "presets.ChunkGeneratorsMixin",
-        "presets.WorldDimensionsMixin",
-        "presets.WorldPresetsBootstrapMixin",
-        "presets.WorldPresetsMixin"
-    ]
+        "presets.ChunkGeneratorsMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }

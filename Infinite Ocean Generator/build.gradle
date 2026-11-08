@@ -50,6 +50,17 @@ repositories {
         }
     }
     maven { url "https://chocolateminecraft.com/maven" } // Xaero
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Azimuth"
+                url = "https://maven.azmod.net/releases"
+            }
+        }
+        filter {
+            includeGroup "com.cake.azimuth"
+        }
+    }
 }
 
 base {
@@ -162,7 +173,7 @@ dependencies {
         runtimeOnly("com.simibubi.create:create-${minecraft_version}:${create_version}:slim") { transitive = false }
         compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${minecraft_version}:${flywheel_version}")
         runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${minecraft_version}:${flywheel_version}")
-        implementation("com.tterrag.registrate:Registrate:${registrate_version}    ")
+        implementation("com.tterrag.registrate:Registrate:${registrate_version}")
     }
     compileOnly("maven.modrinth:farmers-delight:${farmers_delight_version}")
     if (farmers_delight_enable.toBoolean()) {
@@ -199,7 +210,7 @@ jar {
     }
 
     manifest.attributes([
-            "MixinConfigs": "${mod_id}.mixins.json",
+            "MixinConfigs": "Infinite-Ocean-Generator.mixins.json",
             "Git-Hash"    : gitHash
     ])
 }

@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 
 import com.Dramora9879.mods.infinite_ocean_generator.worldgen.InfiniteOceanBiomeSource;
 import com.Dramora9879.mods.infinite_ocean_generator.worldgen.InfiniteOceanChunkGenerator;
-import com.Dramora9879.mods.infinite_ocean_generator.registry.datagen.InfiniteOceanGeneratorCreativeModeTabs;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.MapCodec;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -16,6 +15,8 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.chunk.ChunkGenerator;
@@ -30,16 +31,18 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(InfiniteOceanGenerator.MODID)
-@IncludeLangDefaults ({@LangDefault(key="tab.infinite_ocean_generator.base",value=InfiniteOceanGenerator.TAB_NAME)
-@LangDefault(key = "tab.infinite_ocean_generator.items", value = InfiniteOceanGenerator.ITEMS_TAB_NAME)
-})public class InfiniteOceanGenerator {
+@IncludeLangDefaults({
+		@LangDefault(key = "tab.infinite_ocean_generator.base", value = InfiniteOceanGenerator.TAB_NAME),
+		@LangDefault(key = "tab.infinite_ocean_generator.items", value = InfiniteOceanGenerator.ITEMS_TAB_NAME)
+})
+public class InfiniteOceanGenerator {
 	public static final String MODID = "infinite_ocean_generator";
 	public static final String MOD_NAME = "Infinite Ocean Generator";
 	public static final String TAB_NAME = "Infinite Ocean Generator";
 	public static final String ITEMS_TAB_NAME = "Infinite Ocean Generator Items";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID)
+	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID)
             .defaultCreativeTab((ResourceKey<CreativeModeTab>) null)
             .setTooltipModifierFactory(item ->
                     new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
@@ -56,8 +59,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 	public static final DeferredHolder<MapCodec<? extends BiomeSource>, MapCodec<InfiniteOceanBiomeSource>> INFINITE_OCEAN_BIOME_SOURCE = BIOME_SOURCES
 			.register("ocean", () -> InfiniteOceanBiomeSource.CODEC);
 
+	public static ResourceLocation asResource(String path) {
+		return ResourceLocation.fromNamespaceAndPath(MODID, path);
+	}
+
 	public InfiniteOceanGenerator(IEventBus modEventBus) {
-		CHUNK_GENERATORS.register(modEventBus);
 		BIOME_SOURCES.register(modEventBus);
 		modEventBus.addListener(this::commonSetup);
 		NeoForge.EVENT_BUS.register(this);
